@@ -38,7 +38,12 @@ export default function HnRuleForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4 p-4 border rounded-lg">
-      <h2 className="text-lg font-semibold">Add New Hacker News Rule</h2>
+      <div className="border-b pb-4 mb-4">
+  <h2 className="text-xl font-semibold">Hacker News Rules</h2>
+  <p className="text-sm text-gray-500 mt-1">
+    Get alerts for new stories that match a keyword and score.
+  </p>
+</div>
 
       {/* Keyword Input */}
       <div>
@@ -75,7 +80,7 @@ export default function HnRuleForm() {
       {/* Submit Button */}
       <button
         type="submit"
-        className="w-full py-2 px-4 bg-orange-600 text-white font-semibold rounded-lg shadow-md hover:bg-orange-700"
+        className="w-full py-2 px-4 bg-teal-600 text-white font-semibold rounded-lg shadow-md hover:bg-teal-700"
       >
         Save HN Rule
       </button>

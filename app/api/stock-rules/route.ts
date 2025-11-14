@@ -1,34 +1,34 @@
-import { prisma } from "../../../lib/prisma";
+import { prisma } from "../../../../lib/prisma"; // NOTE: 4 levels up!
 import { NextResponse } from "next/server";
 
-// This function handles POST requests to /api/stock-rules
-export async function POST(request: Request) {
+// This is the correct signature for a dynamic route handler
+export async function DELETE(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
   try {
-    // 1. Get the data from the frontend's request
-    const body = await request.json();
-    const { symbol, condition, price } = body;
+    // 'params' will now correctly contain the 'id'
+    const id = params.id; 
 
-    // 2. Validate the data (simple version)
-    if (!symbol || !condition || !price) {
-      return NextResponse.json(
-        { error: "Missing required fields" },
-        { status: 400 }
-      );
+    // We'll log it to be sure
+    console.log('Received ID for deletion:', id);
+
+    if (!id) {
+      throw new Error("ID not received");
     }
 
-    // 3. Use Prisma to create the new StockRule in the database
-    const newStockRule = await prisma.stockRule.create({
-      data: {
-        symbol: symbol,
-        condition: condition,
-        price: parseFloat(price), // Convert price to a number
+    await prisma.stockRule.delete({
+      where: {
+        id: id, // This will now be the real ID, not undefined
       },
     });
 
-    // 4. Send the new rule back to the frontend as confirmation
-    return NextResponse.json(newStockRule, { status: 201 }); // 201 = "Created"
+    return NextResponse.json(
+      { message: "Rule deleted successfully" },
+      { status: 200 }
+    );
   } catch (error) {
-    console.error("Error creating stock rule:", error);
+    console.error("Error deleting stock rule:", error);
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 }
