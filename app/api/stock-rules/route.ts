@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/prisma"; // Our new Prisma client
+import { prisma } from "../../../lib/prisma";
 import { NextResponse } from "next/server";
 
 // This function handles POST requests to /api/stock-rules
