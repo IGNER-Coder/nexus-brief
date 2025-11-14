@@ -1,11 +1,12 @@
-import { prisma } from "../lib/prisma"; // Use relative path
-import StockRuleForm from "./components/StockRuleForm"; // Use relative path
-import HnRuleForm from "./components/HnRuleForm"; // 1. Import the new form
+import { prisma } from "../lib/prisma";
+import StockRuleForm from "./components/StockRuleForm";
+import HnRuleForm from "./components/HnRuleForm";
+import NewsRuleForm from "./components/NewsRuleForm"; // 1. Import the final form
 
 // This is a Server Component
 export default async function Home() {
   
-  // 2. Fetch BOTH sets of rules
+  // 2. Fetch ALL THREE sets of rules
   const stockRules = await prisma.stockRule.findMany({
     orderBy: { createdAt: "desc" },
   });
@@ -14,13 +15,17 @@ export default async function Home() {
     orderBy: { createdAt: "desc" },
   });
 
+  const newsRules = await prisma.newsRule.findMany({
+    orderBy: { createdAt: "desc" },
+  });
+
   return (
     <main className="p-8 max-w-lg mx-auto space-y-8">
-      <h1 className="text-2xl font-bold">Project In-Brief</h1>
+      <h1 className="text-2xl font-bold">Project In-Brief: Config</h1>
 
       {/* --- Stock Module --- */}
       <section>
-        <StockRuleForm /> {/* Your existing form */}
+        <StockRuleForm />
         <div className="mt-8">
           <h2 className="text-lg font-semibold">Current Stock Rules</h2>
           <ul className="mt-4 space-y-2">
@@ -45,13 +50,12 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* --- HN Module (NEW SECTION) --- */}
+      {/* --- HN Module --- */}
       <section>
-        <HnRuleForm /> {/* 3. Render the new HN form */}
+        <HnRuleForm />
         <div className="mt-8">
           <h2 className="text-lg font-semibold">Current Hacker News Rules</h2>
           <ul className="mt-4 space-y-2">
-            {/* 4. Render the new HN rule list */}
             {hnRules.map((rule) => (
               <li
                 key={rule.id}
@@ -64,6 +68,32 @@ export default async function Home() {
                   <span className="text-gray-700">
                     {" "}
                     if &gt; {rule.minPoints} points
+                  </span>
+                </span>
+                <span className="text-xs text-gray-500">
+                  {rule.createdAt.toLocaleDateString()}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* --- News Module (NEW SECTION) --- */}
+      <section>
+        <NewsRuleForm /> {/* 3. Render the new News form */}
+        <div className="mt-8">
+          <h2 className="text-lg font-semibold">Current News Rules</h2>
+          <ul className="mt-4 space-y-2">
+            {/* 4. Render the new News rule list */}
+            {newsRules.map((rule) => (
+              <li
+                key={rule.id}
+                className="p-3 border rounded-lg flex justify-between items-center"
+              >
+                <span>
+                  <span className="font-medium text-black">
+                    Keyword: '{rule.keyword}'
                   </span>
                 </span>
                 <span className="text-xs text-gray-500">
