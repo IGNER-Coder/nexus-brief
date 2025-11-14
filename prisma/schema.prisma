@@ -1,0 +1,46 @@
+// 1. Prisma Client Generator
+generator client {
+  provider = "prisma-client-js"
+}
+
+// 2. Database Connection
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL") // Pulls from your .env file
+  directUrl = env("POSTGRES_URL_NON_POOLING") // Needed for Vercel migrations
+}
+
+// 3. Data Models for User's "Rules"
+
+model StockRule {
+  id        String   @id @default(cuid())
+  symbol    String   // e.g., "GOOGL"
+  condition String   // "above" or "below"
+  price     Float
+  createdAt DateTime @default(now())
+}
+
+model HnRule {
+  id        String   @id @default(cuid())
+  keyword   String   // e.g., "AI", "Rust"
+  minPoints Int      // e.g., 150
+  createdAt DateTime @default(now())
+}
+
+model NewsRule {
+  id        String   @id @default(cuid())
+  keyword   String   // e.g., "quantum computing"
+  createdAt DateTime @default(now())
+}
+
+// 4. Data Model for the Dashboard "Alerts"
+
+model Alert {
+  id        String   @id @default(cuid())
+  source    String   // "Stock", "Hacker News", or "News"
+  message   String   // The text to display, e.g., "GOOGL crossed $180..."
+  url       String?  // An optional link for the alert
+  createdAt DateTime @default(now())
+
+  @@index([createdAt]) // Makes sorting by date faster
+}
