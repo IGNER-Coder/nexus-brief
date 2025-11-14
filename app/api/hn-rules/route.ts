@@ -1,4 +1,4 @@
-import { prisma } from "../lib/prisma"; // Use the same singleton client
+import { prisma } from "../../../lib/prisma"; // RIGHT (goes up 3 levels)
 import { NextResponse } from "next/server";
 
 // This function handles POST requests to /api/hn-rules
