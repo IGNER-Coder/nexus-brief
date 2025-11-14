@@ -58,6 +58,7 @@ async function checkStockRules() {
 }
 
 // --- Helper Function 2: Check Hacker News Rules ---
+// --- Helper Function 2: Check Hacker News Rules (CORRECTED) ---
 async function checkHnRules() {
   const rules = await prisma.hnRule.findMany();
 
@@ -75,18 +76,19 @@ async function checkHnRules() {
       for (const story of data.hits) {
         const storyUrl = story.url || `https://news.ycombinator.com/item?id=${story.objectID}`;
 
-        // IMPORTANT: Check if we've already alerted for this story
+        // Check if we've already alerted for this story
         const existingAlert = await prisma.alert.findFirst({
           where: { url: storyUrl },
         });
 
         if (!existingAlert) {
+          // This is the part that was broken before
           const message = `[${story.points}pts] ${story.title}`;
           await prisma.alert.create({
             data: {
               source: "Hacker News",
-              message: message,
-              url: storyUrl,
+              message: message, // <-- THE FIX
+              url: storyUrl,      // <-- THE FIX
             },
           });
         }

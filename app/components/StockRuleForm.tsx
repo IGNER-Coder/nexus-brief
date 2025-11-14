@@ -49,7 +49,12 @@ export default function StockRuleForm() { // <-- Change this name
       <h1 className="text-2xl font-bold mb-4">Project In-Brief</h1>
 
       <form onSubmit={handleSubmit} className="space-y-4 p-4 border rounded-lg">
-        <h2 className="text-lg font-semibold">Add New Stock Rule</h2>
+        <div className="border-b pb-4 mb-4">
+  <h2 className="text-xl font-semibold">Stock Rules</h2>
+  <p className="text-sm text-gray-500 mt-1">
+    Get alerts when a stock crosses a specific price.
+  </p>
+</div>
 
         {/* Stock Symbol Input */}
         <div>
@@ -104,7 +109,7 @@ export default function StockRuleForm() { // <-- Change this name
         {/* Submit Button */}
         <button
           type="submit"
-          className="w-full py-2 px-4 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700"
+          className="w-full py-2 px-4 bg-teal-600 text-white font-semibold rounded-lg shadow-md hover:bg-teal-700"
         >
           Save Stock Rule
         </button>

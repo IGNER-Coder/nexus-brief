@@ -35,7 +35,12 @@ export default function NewsRuleForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4 p-4 border rounded-lg">
-      <h2 className="text-lg font-semibold">Add New News API Rule</h2>
+      <div className="border-b pb-4 mb-4">
+  <h2 className="text-xl font-semibold">News API Rules</h2>
+  <p className="text-sm text-gray-500 mt-1">
+    Get alerts for top headlines matching any keyword or topic.
+  </p>
+</div>
 
       {/* Keyword Input */}
       <div>
