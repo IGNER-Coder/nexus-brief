@@ -1,4 +1,4 @@
-import { prisma } from "../../../../lib/prisma"; // 4 levels up
+import { prisma } from "../../../lib/prisma"; // 3 levels up
 import { NextResponse } from "next/server";
 
 export async function DELETE(

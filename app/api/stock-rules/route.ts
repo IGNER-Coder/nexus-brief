@@ -1,4 +1,4 @@
-import { prisma } from "../../../../lib/prisma"; // NOTE: 4 levels up!
+import { prisma } from "../../../lib/prisma"; // NOTE: 3 levels up!
 import { NextResponse } from "next/server";
 
 // This is the correct signature for a dynamic route handler
