@@ -1,6 +1,5 @@
 import { prisma } from "../../../lib/prisma";
 import { NextResponse } from "next/server";
-import { NextResponse } from "next/server";
 
 // This is the correct signature for a dynamic route handler
 export async function DELETE(
